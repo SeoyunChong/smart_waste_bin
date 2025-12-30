@@ -34,7 +34,7 @@ BIN_CONFIG = {
 # ==================================================
 # Discord (단일 Webhook)
 # ==================================================
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1451256019786272944/JBVxahaBu6iHsYU8dLIqASeeuR3Ui5xejIttpMAybxjHAhwXPLGAUG6R2d1EIP_hUnu0"
+DISCORD_WEBHOOK_URL = "hidden"
 
 ALERT_FILL_THRESHOLD = 80      # %
 ALERT_COOLDOWN_SEC = 300       # 5분
@@ -188,3 +188,4 @@ cap.release()
 ser.close()
 
 cv2.destroyAllWindows()
+
