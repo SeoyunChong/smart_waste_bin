@@ -23,7 +23,7 @@ const int SERVO_OPEN_ANGLE  = 150;
 const int SERVO_CLOSE_ANGLE = 90;
 
 // 초기화 시 모터 간 간격 (안전)
-const int INIT_DELAY_MS = 800;
+const int INIT_DELAY_MS = 3000;
 
 // =======================
 Servo servos[3];
