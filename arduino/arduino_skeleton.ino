@@ -1,7 +1,7 @@
 #include <Servo.h>
 
 /*
-  스마트 쓰레기통 (3분류) 스켈레톤 코드
+  스마트 쓰레기통 (3분류)
   Metal / Cardboard / Plastic
 */
 
@@ -10,17 +10,20 @@
 // =======================
 
 // 서보 모터 핀 (0:Metal, 1:Cardboard, 2:Plastic)
-const int SERVO_PINS[3] = { ___, ___, ___ };
+const int SERVO_PINS[3] = {10, 11, 9};
 
 // 초음파 센서 핀
-const int TRIG_PINS[3] = { ___, ___, ___ };
-const int ECHO_PINS[3] = { ___, ___, ___ };
+const int TRIG_PINS[3] = {5, 7, 2};
+const int ECHO_PINS[3] = {4, 6, 3};
 
 // =======================
 // 2. 기본 설정 값
 // =======================
 const int SERVO_OPEN_ANGLE  = 150;
 const int SERVO_CLOSE_ANGLE = 90;
+
+// 초기화 시 모터 간 간격 (안전)
+const int INIT_DELAY_MS = 800;
 
 // =======================
 Servo servos[3];
@@ -47,13 +50,21 @@ long measureDistanceCM(int index) {
 void setup() {
   Serial.begin(9600);
 
+  // 핀 모드 설정
   for (int i = 0; i < 3; i++) {
     pinMode(TRIG_PINS[i], OUTPUT);
     pinMode(ECHO_PINS[i], INPUT);
+  }
 
-    // TODO 5️⃣ 서보 모터를 연결하세요
-    servos[i].attach( ___ );
+  // -----------------------
+  // 초기화 시퀀스
+  //   - 한 번에 하나의 서보만 동작
+  //   - 모두 닫힌 상태로 강제 초기화
+  // -----------------------
+  for (int i = 0; i < 3; i++) {
+    servos[i].attach(SERVO_PINS[i]);
     servos[i].write(SERVO_CLOSE_ANGLE);
+    delay(INIT_DELAY_MS);   // 동시에 움직이지 않도록 여유
   }
 
   Serial.println("READY");
@@ -87,15 +98,12 @@ void loop() {
 
     int idx = -1;
 
-    // TODO 6️⃣ "Metal"일 때 idx 값은?
     if (cmd == "Metal") {
-      idx = ___;
+      idx = 0;
     }
-    // TODO 7️⃣ "Cardboard"일 때 idx 값은?
     else if (cmd == "Cardboard") {
-      idx = ___;
+      idx = 1;
     }
-    // Plastic은 이미 완성되더 있음(참고 가능)
     else if (cmd == "Plastic") {
       idx = 2;
     }
